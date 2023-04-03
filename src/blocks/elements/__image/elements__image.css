@@ -1,0 +1,17 @@
+.elements__image {
+  width: 282px;
+  height: 282px;
+  display: flex;
+  color: #fff;
+  background: #000;
+  border-radius: 10px 10px 0 0;
+  object-fit: cover;
+  overflow: hidden;
+  transition: 1s;
+}
+
+.elements__image:hover {
+  filter: brightness(.8) sepia(100%);
+  cursor: pointer;
+  transition: .5s;
+}
