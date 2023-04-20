@@ -1,11 +1,9 @@
-function ImagePopup(props) {
+export const ImagePopup = (props) => {
   return (
     <div
       id='popup-image'
-      className={`popup popup_type_image ${
-        props.isOpen ? 'popup_is-opened' : ''
-      }`}>
-      <div className='popup__image-container'>
+      className={`popup popup_type_image ${props.isOpen && 'popup_is-opened'}`}>
+      <div className='popup__container popup__container_type_image'>
         <button
           type='button'
           aria-label='Закрыть'
@@ -22,6 +20,4 @@ function ImagePopup(props) {
       </div>
     </div>
   );
-}
-
-export default ImagePopup;
+};

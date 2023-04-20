@@ -1,0 +1,14 @@
+.auth__fieldset {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 0 0 186px;
+  padding: 0;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .auth__fieldset {
+    margin: 0 0 143 px;
+  }
+}

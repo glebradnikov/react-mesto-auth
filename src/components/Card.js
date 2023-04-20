@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Card(props) {
+export default function Card(props) {
   const currentUser = useContext(CurrentUserContext);
   const isOwn = props.card.owner._id === currentUser._id;
   const cardDeleteButtonClassName = isOwn && (
@@ -48,5 +48,3 @@ function Card(props) {
     </li>
   );
 }
-
-export default Card;

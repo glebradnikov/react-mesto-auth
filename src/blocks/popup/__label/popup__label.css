@@ -1,15 +1,15 @@
-.popup__field {
+.popup__label {
   position: relative;
   margin: 0 0 30px;
   display: flex;
 }
 
-.popup__field:last-of-type {
+.popup__label:last-of-type {
   margin: 0 0 48px;
 }
 
 @media (max-width: 768px) {
-  .popup__field:last-of-type {
+  .popup__label:last-of-type {
     margin: 0 0 45px;
   }
 }

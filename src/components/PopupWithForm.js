@@ -1,9 +1,9 @@
-function PopupWithForm(props) {
+export const PopupWithForm = (props) => {
   return (
     <div
       id={`popup-${props.name}`}
-      className={`popup ${props.isOpen ? 'popup_is-opened' : ''}`}>
-      <div className='popup__form-container'>
+      className={`popup ${props.isOpen && 'popup_is-opened'}`}>
+      <div className='popup__container'>
         <button
           type='button'
           aria-label='Закрыть'
@@ -11,7 +11,7 @@ function PopupWithForm(props) {
           onClick={props.onClose}></button>
         <form
           name={props.name}
-          id='form-confirm'
+          id={`form-${props.name}`}
           className='popup__form'
           onSubmit={props.onSubmit}>
           <legend className='popup__legend'>{props.title}</legend>
@@ -23,6 +23,4 @@ function PopupWithForm(props) {
       </div>
     </div>
   );
-}
-
-export default PopupWithForm;
+};

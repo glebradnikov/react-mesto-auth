@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import PopupWithForm from './PopupWithForm';
+import { PopupWithForm } from './PopupWithForm';
 
-function EditAvatarPopup(props) {
+export const EditAvatarPopup = (props) => {
   const [avatar, setAvatar] = useState('');
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function EditAvatarPopup(props) {
       onClose={props.onClose}
       onSubmit={handleSubmit}>
       <fieldset className='popup__fieldset'>
-        <label className='popup__field'>
+        <label className='popup__label'>
           <input
             type='url'
             name='avatar'
@@ -47,6 +47,4 @@ function EditAvatarPopup(props) {
       </fieldset>
     </PopupWithForm>
   );
-}
-
-export default EditAvatarPopup;
+};

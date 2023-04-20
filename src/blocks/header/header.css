@@ -1,15 +1,16 @@
 .header {
   box-sizing: border-box;
-  min-height: 74px;
   margin: 0 0 40px;
+  padding: 0 0 41px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: 1px solid rgb(84, 84, 84, .7);
 }
 
 @media (max-width: 768px) {
   .header {
-    min-height: 56px;
-    margin: 0 0 42px;
-    padding: 0 19px;
+    margin: 0 0 40px;
+    padding: 0 30px 32px;
   }
 }

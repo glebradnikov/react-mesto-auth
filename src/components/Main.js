@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Main(props) {
+export const Main = (props) => {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -58,6 +58,4 @@ function Main(props) {
       </section>
     </main>
   );
-}
-
-export default Main;
+};

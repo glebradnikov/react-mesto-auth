@@ -1,0 +1,11 @@
+.popup__image_type_register {
+  max-width: 120px;
+  max-height: 120px;
+  margin: 0 auto 32px;
+}
+
+@media (max-width: 768px) {
+  .popup__image_type_register {
+    margin: 0 auto 40px;
+  }
+}

@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect } from 'react';
-import PopupWithForm from './PopupWithForm';
+import { PopupWithForm } from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function EditProfilePopup(props) {
+export const EditProfilePopup = (props) => {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -40,7 +40,7 @@ function EditProfilePopup(props) {
       onClose={props.onClose}
       onSubmit={handleSubmit}>
       <fieldset className='popup__fieldset'>
-        <label className='popup__field'>
+        <label className='popup__label'>
           <input
             type='text'
             name='name'
@@ -57,7 +57,7 @@ function EditProfilePopup(props) {
             id='name-input-edit-profile-error'
             className='popup__error'></span>
         </label>
-        <label className='popup__field'>
+        <label className='popup__label'>
           <input
             type='text'
             name='about'
@@ -77,6 +77,4 @@ function EditProfilePopup(props) {
       </fieldset>
     </PopupWithForm>
   );
-}
-
-export default EditProfilePopup;
+};

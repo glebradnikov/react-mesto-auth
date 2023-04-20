@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import PopupWithForm from './PopupWithForm';
+import { PopupWithForm } from './PopupWithForm';
 
-function AddPlacePopup(props) {
+export const AddPlacePopup = (props) => {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
@@ -38,7 +38,7 @@ function AddPlacePopup(props) {
       onClose={props.onClose}
       onSubmit={handleSubmit}>
       <fieldset className='popup__fieldset'>
-        <label className='popup__field'>
+        <label className='popup__label'>
           <input
             type='text'
             name='title'
@@ -55,7 +55,7 @@ function AddPlacePopup(props) {
             id='title-input-add-element-error'
             className='popup__error'></span>
         </label>
-        <label className='popup__field'>
+        <label className='popup__label'>
           <input
             type='url'
             name='link'
@@ -73,6 +73,4 @@ function AddPlacePopup(props) {
       </fieldset>
     </PopupWithForm>
   );
-}
-
-export default AddPlacePopup;
+};
