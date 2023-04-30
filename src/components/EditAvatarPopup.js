@@ -3,24 +3,30 @@ import { PopupWithForm } from './PopupWithForm';
 
 export const EditAvatarPopup = (props) => {
   const [avatar, setAvatar] = useState('');
+  const [errors, setErrors] = useState('');
+  const [isValid, setIsValid] = useState(true);
 
   useEffect(() => {
     if (props.isOpen) {
       setAvatar('');
+      setErrors('');
+      setIsValid(true);
     }
   }, [props.isOpen]);
 
-  function handleChangeAvatar(event) {
+  const handleChangeAvatar = (event) => {
     setAvatar(event.target.value);
-  }
+    setErrors(event.target.validationMessage);
+    setIsValid(event.target.closest('form').checkValidity());
+  };
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     props.onUpdateAvatar({
       avatar,
     });
-  }
+  };
 
   return (
     <PopupWithForm
@@ -36,13 +42,17 @@ export const EditAvatarPopup = (props) => {
             type='url'
             name='avatar'
             placeholder='Ссылка на картинку'
-            id='url-input-avatar'
-            className='popup__input'
+            className={`popup__input ${
+              isValid ? '' : 'popup__input_type_error'
+            }`}
             required
             value={avatar}
             onChange={handleChangeAvatar}
           />
-          <span id='url-input-avatar-error' className='popup__error'></span>
+          <span
+            className={`popup__error ${isValid ? '' : 'popup__error_active'}`}>
+            {errors}
+          </span>
         </label>
       </fieldset>
     </PopupWithForm>

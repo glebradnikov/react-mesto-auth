@@ -1,0 +1,15 @@
+.auth__label {
+  position: relative;
+  display: flex;
+  margin: 0 0 30px;
+}
+
+/* .popup__label:last-of-type {
+  margin: 0 0 48px;
+}
+
+@media (max-width: 768px) {
+  .popup__label:last-of-type {
+    margin: 0 0 45px;
+  }
+} */

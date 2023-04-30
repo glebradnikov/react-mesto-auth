@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export const Register = (props) => {
-  const [userData, setUserData] = useState({
-    email: '',
-    password: '',
+  const [userData, setUserData] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState({
+    email: true,
+    password: true,
   });
 
   const handleChange = (event) => {
@@ -13,6 +15,14 @@ export const Register = (props) => {
     setUserData({
       ...userData,
       [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: event.target.validationMessage,
+    });
+    setIsValid({
+      ...isValid,
+      [name]: event.target.checkValidity(),
     });
   };
 
@@ -34,25 +44,41 @@ export const Register = (props) => {
             <input
               type='email'
               name='email'
-              value={userData.email}
+              value={userData.email || ''}
               placeholder='Email'
-              className='auth__input'
+              className={`auth__input ${
+                isValid.email ? '' : 'auth__input_type_error'
+              }`}
               required
               onChange={handleChange}
             />
-            <span className='auth__error'></span>
+            <span
+              className={`popup__error ${
+                isValid.email ? '' : 'popup__error_active'
+              }`}>
+              {errors.email}
+            </span>
           </label>
           <label className='auth__label'>
             <input
               type='password'
               name='password'
-              value={userData.password}
+              value={userData.password || ''}
               placeholder='Пароль'
-              className='auth__input'
+              minLength='8'
+              maxLength='128'
+              className={`auth__input ${
+                isValid.password ? '' : 'auth__input_type_error'
+              }`}
               required
               onChange={handleChange}
             />
-            <span className='auth__error'></span>
+            <span
+              className={`popup__error ${
+                isValid.password ? '' : 'popup__error_active'
+              }`}>
+              {errors.password}
+            </span>
           </label>
         </fieldset>
         <button type='submit' className='auth__submit' onClick={handleSubmit}>

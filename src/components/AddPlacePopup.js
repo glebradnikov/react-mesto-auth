@@ -2,32 +2,46 @@ import { useState, useEffect } from 'react';
 import { PopupWithForm } from './PopupWithForm';
 
 export const AddPlacePopup = (props) => {
-  const [name, setName] = useState('');
-  const [link, setLink] = useState('');
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState({});
 
   useEffect(() => {
     if (props.isOpen) {
-      setName('');
-      setLink('');
+      setValues({});
+      setErrors({});
+      setIsValid({
+        title: true,
+        link: true,
+      });
     }
   }, [props.isOpen]);
 
-  function handleChangeName(event) {
-    setName(event.target.value);
-  }
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-  function handleChangeLink(event) {
-    setLink(event.target.value);
-  }
+    setValues({
+      ...values,
+      [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: event.target.validationMessage,
+    });
+    setIsValid({
+      ...isValid,
+      [name]: event.target.checkValidity(),
+    });
+  };
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     props.onAddPlace({
-      title: name,
-      link,
+      title: values.title,
+      link: values.link,
     });
-  }
+  };
 
   return (
     <PopupWithForm
@@ -45,30 +59,38 @@ export const AddPlacePopup = (props) => {
             placeholder='Название'
             minLength='2'
             maxLength='30'
-            id='title-input-add-element'
-            className='popup__input'
+            className={`popup__input ${
+              isValid.title ? '' : 'popup__input_type_error'
+            }`}
             required
-            value={name}
-            onChange={handleChangeName}
+            value={values.title || ''}
+            onChange={handleChange}
           />
           <span
-            id='title-input-add-element-error'
-            className='popup__error'></span>
+            className={`popup__error ${
+              isValid.title ? '' : 'popup__error_active'
+            }`}>
+            {errors.title}
+          </span>
         </label>
         <label className='popup__label'>
           <input
             type='url'
             name='link'
             placeholder='Ссылка на картинку'
-            id='url-input-add-element'
-            className='popup__input'
+            className={`popup__input ${
+              isValid.link ? '' : 'popup__input_type_error'
+            }`}
             required
-            value={link}
-            onChange={handleChangeLink}
+            value={values.link || ''}
+            onChange={handleChange}
           />
           <span
-            id='url-input-add-element-error'
-            className='popup__error'></span>
+            className={`popup__error ${
+              isValid.link ? '' : 'popup__error_active'
+            }`}>
+            {errors.link}
+          </span>
         </label>
       </fieldset>
     </PopupWithForm>

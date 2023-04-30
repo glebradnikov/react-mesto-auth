@@ -1,0 +1,9 @@
+.burger-menu__button {
+  padding: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.22;
+  color: #a9a9a9;
+  background: #000;
+  border: 0;
+}

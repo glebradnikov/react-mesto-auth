@@ -1,0 +1,19 @@
+.header__burger-menu-button_type_close {
+  width: 20px;
+  height: 20px;
+}
+
+.header__burger-menu-button_type_close span {
+  top: 9px;
+  transform: rotate(45deg);
+}
+
+.header__burger-menu-button_type_close span:before {
+  top: 0;
+  transform: rotate(90deg);
+}
+
+.header__burger-menu-button_type_close span:after {
+  top: 0;
+  transform: rotate(90deg);
+}

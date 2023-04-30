@@ -4,32 +4,49 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export const EditProfilePopup = (props) => {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState({});
 
   useEffect(() => {
     if (props.isOpen) {
-      setName(currentUser.name);
-      setDescription(currentUser.about);
+      setValues({
+        name: currentUser.name,
+        about: currentUser.about,
+      });
+      setErrors({});
+      setIsValid({
+        name: true,
+        about: true,
+      });
     }
   }, [currentUser, props.isOpen]);
 
-  function handleChangeName(event) {
-    setName(event.target.value);
-  }
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-  function handleChangeDescription(event) {
-    setDescription(event.target.value);
-  }
+    setValues({
+      ...values,
+      [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: event.target.validationMessage,
+    });
+    setIsValid({
+      ...isValid,
+      [name]: event.target.checkValidity(),
+    });
+  };
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     props.onUpdateUser({
-      name,
-      about: description,
+      name: values.name,
+      about: values.about,
     });
-  }
+  };
 
   return (
     <PopupWithForm
@@ -47,15 +64,19 @@ export const EditProfilePopup = (props) => {
             placeholder='Имя'
             minLength='2'
             maxLength='40'
-            id='name-input-edit-profile'
-            className='popup__input'
+            className={`popup__input ${
+              isValid.name ? '' : 'popup__input_type_error'
+            }`}
             required
-            value={name}
-            onChange={handleChangeName}
+            value={values.name || ''}
+            onChange={handleChange}
           />
           <span
-            id='name-input-edit-profile-error'
-            className='popup__error'></span>
+            className={`popup__error ${
+              isValid.name ? '' : 'popup__error_active'
+            }`}>
+            {errors.name}
+          </span>
         </label>
         <label className='popup__label'>
           <input
@@ -64,15 +85,19 @@ export const EditProfilePopup = (props) => {
             placeholder='Место работы'
             minLength='2'
             maxLength='200'
-            id='workplace-input-edit-profile'
-            className='popup__input'
+            className={`popup__input ${
+              isValid.about ? '' : 'popup__input_type_error'
+            }`}
             required
-            value={description}
-            onChange={handleChangeDescription}
+            value={values.about || ''}
+            onChange={handleChange}
           />
           <span
-            id='workplace-input-edit-profile-error'
-            className='popup__error'></span>
+            className={`popup__error ${
+              isValid.about ? '' : 'popup__error_active'
+            }`}>
+            {errors.about}
+          </span>
         </label>
       </fieldset>
     </PopupWithForm>

@@ -1,8 +1,6 @@
 export const PopupWithForm = (props) => {
   return (
-    <div
-      id={`popup-${props.name}`}
-      className={`popup ${props.isOpen && 'popup_is-opened'}`}>
+    <div className={`popup ${props.isOpen && 'popup_is-opened'}`}>
       <div className='popup__container'>
         <button
           type='button'
@@ -13,6 +11,7 @@ export const PopupWithForm = (props) => {
           name={props.name}
           id={`form-${props.name}`}
           className='popup__form'
+          noValidate
           onSubmit={props.onSubmit}>
           <legend className='popup__legend'>{props.title}</legend>
           {props.children}

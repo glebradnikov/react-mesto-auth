@@ -24,7 +24,7 @@ export const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isRegister, setRegister] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState({});
   const navigate = useNavigate();
@@ -148,7 +148,7 @@ export const App = () => {
       api.checkToken(localStorage.getItem('jwt')).then((response) => {
         if (response) {
           setLoggedIn(true);
-          setUserEmail(response.data.email);
+          setEmail(response.data.email);
           navigate('/', { replace: true });
         }
       });
@@ -167,7 +167,7 @@ export const App = () => {
         if (response.token) {
           localStorage.setItem('jwt', response.token);
           setLoggedIn(true);
-          setUserEmail(props.email);
+          setEmail(props.email);
           props.setUserData({ email: '', password: '' });
           navigate('/', { replace: true });
           return response;
@@ -181,7 +181,7 @@ export const App = () => {
   const handleSignOut = () => {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
-    setUserEmail('');
+    setEmail('');
     navigate('/sign-in', { replace: true });
   };
 
@@ -204,7 +204,7 @@ export const App = () => {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header userEmail={userEmail} onSignOut={handleSignOut} />
+      <Header email={email} onSignOut={handleSignOut} />
       <Routes>
         <Route
           path='/'
@@ -232,6 +232,11 @@ export const App = () => {
         />
       </Routes>
       <Footer />
+      <PopupWithForm
+        title={'Вы уверены?'}
+        name={'popup-confirm'}
+        submitText={'Да'}
+      />
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
@@ -246,11 +251,6 @@ export const App = () => {
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
-      />
-      <PopupWithForm
-        title={'Вы уверены?'}
-        name={'popup-confirm'}
-        submitText={'Да'}
       />
       <ImagePopup
         isOpen={isImagePopupOpen}

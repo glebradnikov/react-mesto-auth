@@ -2,7 +2,6 @@
   width: 100%;
   max-width: 358px;
   min-height: 50px;
-  margin: 0 0 15px;
   padding: 0;
   border: 0;
   font-size: 18px;
@@ -23,7 +22,6 @@
 @media (max-width: 768px) {
   .auth__submit {
     min-height: 46px;
-    margin: 0 0 20px;
     font-size: 16px;
   }
 }
