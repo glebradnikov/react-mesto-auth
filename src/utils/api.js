@@ -91,11 +91,7 @@ export const checkToken = (token) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  })
-    .then((response) => {
-      return response.ok && response.json();
-    })
-    .catch((error) => console.log(error));
+  }).then(handleResponse);
 };
 
 export const login = (email, password) => {
@@ -105,11 +101,7 @@ export const login = (email, password) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
-  })
-    .then((response) => {
-      return response.ok && response.json();
-    })
-    .catch((error) => console.log(error));
+  }).then(handleResponse);
 };
 
 export const register = (email, password) => {
@@ -119,9 +111,5 @@ export const register = (email, password) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
-  })
-    .then((response) => {
-      return response.ok && response.json();
-    })
-    .catch((error) => console.log(error));
+  }).then(handleResponse);
 };

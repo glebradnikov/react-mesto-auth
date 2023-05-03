@@ -19,6 +19,7 @@ export const Header = (props) => {
             className='burger-menu__button'
             onClick={() => {
               props.onSignOut();
+              handleBurgerMenuClick();
             }}>
             Выйти
           </button>

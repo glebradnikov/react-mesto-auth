@@ -1,43 +1,23 @@
-import { useContext, useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { PopupWithForm } from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useFormAndValidation } from '../hooks/useFormAndValidation';
 
 export const EditProfilePopup = (props) => {
   const currentUser = useContext(CurrentUserContext);
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState({});
+  const { values, errors, isValid, setValues, handleChange, resetForm } =
+    useFormAndValidation();
 
   useEffect(() => {
     if (props.isOpen) {
+      resetForm();
+
       setValues({
         name: currentUser.name,
         about: currentUser.about,
       });
-      setErrors({});
-      setIsValid({
-        name: true,
-        about: true,
-      });
     }
-  }, [currentUser, props.isOpen]);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setValues({
-      ...values,
-      [name]: value,
-    });
-    setErrors({
-      ...errors,
-      [name]: event.target.validationMessage,
-    });
-    setIsValid({
-      ...isValid,
-      [name]: event.target.checkValidity(),
-    });
-  };
+  }, [props.isOpen, currentUser, setValues, resetForm]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -65,7 +45,9 @@ export const EditProfilePopup = (props) => {
             minLength='2'
             maxLength='40'
             className={`popup__input ${
-              isValid.name ? '' : 'popup__input_type_error'
+              isValid.name === undefined || isValid.name
+                ? ''
+                : 'popup__input_type_error'
             }`}
             required
             value={values.name || ''}
@@ -73,7 +55,9 @@ export const EditProfilePopup = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.name ? '' : 'popup__error_active'
+              isValid.name === undefined || isValid.name
+                ? ''
+                : 'popup__error_active'
             }`}>
             {errors.name}
           </span>
@@ -86,7 +70,9 @@ export const EditProfilePopup = (props) => {
             minLength='2'
             maxLength='200'
             className={`popup__input ${
-              isValid.about ? '' : 'popup__input_type_error'
+              isValid.about === undefined || isValid.about
+                ? ''
+                : 'popup__input_type_error'
             }`}
             required
             value={values.about || ''}
@@ -94,7 +80,9 @@ export const EditProfilePopup = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.about ? '' : 'popup__error_active'
+              isValid.about === undefined || isValid.about
+                ? ''
+                : 'popup__error_active'
             }`}>
             {errors.about}
           </span>

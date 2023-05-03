@@ -145,18 +145,24 @@ export const App = () => {
 
   const handleTokenCheck = () => {
     if (localStorage.getItem('jwt')) {
-      api.checkToken(localStorage.getItem('jwt')).then((response) => {
-        if (response) {
-          setLoggedIn(true);
-          setEmail(response.data.email);
-          navigate('/', { replace: true });
-        }
-      });
+      api
+        .checkToken(localStorage.getItem('jwt'))
+        .then((response) => {
+          if (response) {
+            setLoggedIn(true);
+            setEmail(response.data.email);
+            navigate('/', { replace: true });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
   useEffect(() => {
     handleTokenCheck();
+
     // eslint-disable-next-line
   }, []);
 
@@ -168,7 +174,7 @@ export const App = () => {
           localStorage.setItem('jwt', response.token);
           setLoggedIn(true);
           setEmail(props.email);
-          props.setUserData({ email: '', password: '' });
+          props.setValues({ email: '', password: '' });
           navigate('/', { replace: true });
           return response;
         }
@@ -188,23 +194,21 @@ export const App = () => {
   const handleRegister = (props) => {
     api
       .register(props.email, props.password)
-      .then((response) => {
-        if (response) {
-          setRegister(true);
-          navigate('/sign-in', { replace: true });
-        } else {
-          setRegister(false);
-        }
+      .then(() => {
+        setRegister(true);
         setInfoTooltipPopupOpen(true);
+        navigate('/sign-in', { replace: true });
       })
       .catch((error) => {
+        setRegister(false);
+        setInfoTooltipPopupOpen(true);
         console.log(error);
       });
   };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <Header email={email} onSignOut={handleSignOut} />
+      <Header isLoggedIn={isLoggedIn} email={email} onSignOut={handleSignOut} />
       <Routes>
         <Route
           path='/'
@@ -222,21 +226,14 @@ export const App = () => {
             />
           }
         />
-        <Route
-          path='/sign-in'
-          element={<Login isLoggedIn={isLoggedIn} onLogin={handleLogin} />}
-        />
+        <Route path='/sign-in' element={<Login onLogin={handleLogin} />} />
         <Route
           path='/sign-up'
           element={<Register onRegister={handleRegister} />}
         />
       </Routes>
       <Footer />
-      <PopupWithForm
-        title={'Вы уверены?'}
-        name={'popup-confirm'}
-        submitText={'Да'}
-      />
+      <PopupWithForm title={'Вы уверены?'} name={'confirm'} submitText={'Да'} />
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
@@ -253,9 +250,9 @@ export const App = () => {
         onAddPlace={handleAddPlaceSubmit}
       />
       <ImagePopup
+        card={selectedCard}
         isOpen={isImagePopupOpen}
         onClose={closeAllPopups}
-        card={selectedCard}
       />
       <InfoTooltip
         isRegister={isRegister}

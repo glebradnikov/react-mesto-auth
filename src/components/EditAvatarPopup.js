@@ -1,30 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { PopupWithForm } from './PopupWithForm';
+import { useFormAndValidation } from '../hooks/useFormAndValidation';
 
 export const EditAvatarPopup = (props) => {
-  const [avatar, setAvatar] = useState('');
-  const [errors, setErrors] = useState('');
-  const [isValid, setIsValid] = useState(true);
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
 
   useEffect(() => {
     if (props.isOpen) {
-      setAvatar('');
-      setErrors('');
-      setIsValid(true);
+      resetForm();
     }
-  }, [props.isOpen]);
-
-  const handleChangeAvatar = (event) => {
-    setAvatar(event.target.value);
-    setErrors(event.target.validationMessage);
-    setIsValid(event.target.closest('form').checkValidity());
-  };
+  }, [props.isOpen, resetForm]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     props.onUpdateAvatar({
-      avatar,
+      avatar: values.avatar,
     });
   };
 
@@ -43,15 +35,21 @@ export const EditAvatarPopup = (props) => {
             name='avatar'
             placeholder='Ссылка на картинку'
             className={`popup__input ${
-              isValid ? '' : 'popup__input_type_error'
+              isValid.avatar === undefined || isValid.avatar
+                ? ''
+                : 'popup__input_type_error'
             }`}
             required
-            value={avatar}
-            onChange={handleChangeAvatar}
+            value={values.avatar || ''}
+            onChange={handleChange}
           />
           <span
-            className={`popup__error ${isValid ? '' : 'popup__error_active'}`}>
-            {errors}
+            className={`popup__error ${
+              isValid.avatar === undefined || isValid.avatar
+                ? ''
+                : 'popup__error_active'
+            }`}>
+            {errors.avatar}
           </span>
         </label>
       </fieldset>

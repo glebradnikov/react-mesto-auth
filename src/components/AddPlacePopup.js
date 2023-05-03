@@ -1,38 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { PopupWithForm } from './PopupWithForm';
+import { useFormAndValidation } from '../hooks/useFormAndValidation';
 
 export const AddPlacePopup = (props) => {
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState({});
+  const { values, errors, isValid, handleChange, resetForm } =
+    useFormAndValidation();
 
   useEffect(() => {
     if (props.isOpen) {
-      setValues({});
-      setErrors({});
-      setIsValid({
-        title: true,
-        link: true,
-      });
+      resetForm();
     }
-  }, [props.isOpen]);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setValues({
-      ...values,
-      [name]: value,
-    });
-    setErrors({
-      ...errors,
-      [name]: event.target.validationMessage,
-    });
-    setIsValid({
-      ...isValid,
-      [name]: event.target.checkValidity(),
-    });
-  };
+  }, [props.isOpen, resetForm]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -60,7 +38,9 @@ export const AddPlacePopup = (props) => {
             minLength='2'
             maxLength='30'
             className={`popup__input ${
-              isValid.title ? '' : 'popup__input_type_error'
+              isValid.title === undefined || isValid.title
+                ? ''
+                : 'popup__input_type_error'
             }`}
             required
             value={values.title || ''}
@@ -68,7 +48,9 @@ export const AddPlacePopup = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.title ? '' : 'popup__error_active'
+              isValid.title === undefined || isValid.title
+                ? ''
+                : 'popup__error_active'
             }`}>
             {errors.title}
           </span>
@@ -79,7 +61,9 @@ export const AddPlacePopup = (props) => {
             name='link'
             placeholder='Ссылка на картинку'
             className={`popup__input ${
-              isValid.link ? '' : 'popup__input_type_error'
+              isValid.link === undefined || isValid.link
+                ? ''
+                : 'popup__input_type_error'
             }`}
             required
             value={values.link || ''}
@@ -87,7 +71,9 @@ export const AddPlacePopup = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.link ? '' : 'popup__error_active'
+              isValid.link === undefined || isValid.link
+                ? ''
+                : 'popup__error_active'
             }`}>
             {errors.link}
           </span>
