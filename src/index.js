@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(document.querySelector('#root'));
 
 root.render(
   <React.StrictMode>
-    <HashRouter>
+    <HashRouter basename='/'>
       <div className='page'>
         <App />
       </div>
