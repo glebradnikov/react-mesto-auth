@@ -3,7 +3,7 @@ import { PopupWithForm } from './PopupWithForm';
 import { useFormAndValidation } from '../hooks/useFormAndValidation';
 
 export const EditAvatarPopup = (props) => {
-  const { values, handleChange, errors, isValid, resetForm } =
+  const { values, handleChange, errors, isValids, isValid, resetForm } =
     useFormAndValidation();
 
   useEffect(() => {
@@ -25,6 +25,7 @@ export const EditAvatarPopup = (props) => {
       title={'Обновить аватар'}
       name={'edit-avatar'}
       submitText={'Сохранить'}
+      isValid={isValid}
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}>
@@ -35,7 +36,7 @@ export const EditAvatarPopup = (props) => {
             name='avatar'
             placeholder='Ссылка на картинку'
             className={`popup__input ${
-              isValid.avatar === undefined || isValid.avatar
+              isValids.avatar === undefined || isValids.avatar
                 ? ''
                 : 'popup__input_type_error'
             }`}
@@ -45,7 +46,7 @@ export const EditAvatarPopup = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.avatar === undefined || isValid.avatar
+              isValids.avatar === undefined || isValids.avatar
                 ? ''
                 : 'popup__error_active'
             }`}>

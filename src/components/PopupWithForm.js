@@ -1,19 +1,17 @@
 import { Popup } from './Popup';
+import { Form } from './Form';
 
 export const PopupWithForm = (props) => {
   return (
     <Popup name={props.name} isOpen={props.isOpen} onClose={props.onClose}>
-      <form
+      <Form
         name={props.name}
-        className='popup__form'
-        noValidate
+        title={props.title}
+        submitText={props.submitText}
+        isValid={props.isValid}
         onSubmit={props.onSubmit}>
-        <legend className='popup__legend'>{props.title}</legend>
         {props.children}
-        <button type='submit' className='popup__submit'>
-          {props.submitText}
-        </button>
-      </form>
+      </Form>
     </Popup>
   );
 };

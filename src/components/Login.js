@@ -2,7 +2,7 @@ import { AuthForm } from './AuthForm';
 import { useFormAndValidation } from '../hooks/useFormAndValidation';
 
 export const Login = (props) => {
-  const { values, errors, isValid, setValues, handleChange } =
+  const { values, errors, isValids, setValues, handleChange } =
     useFormAndValidation();
 
   const handleSubmit = (event) => {
@@ -29,7 +29,7 @@ export const Login = (props) => {
             value={values.email || ''}
             placeholder='Email'
             className={`auth__input ${
-              isValid.email === undefined || isValid.email
+              isValids.email === undefined || isValids.email
                 ? ''
                 : 'auth__input_type_error'
             }`}
@@ -38,7 +38,7 @@ export const Login = (props) => {
           />
           <span
             className={`auth__error ${
-              isValid.email === undefined || isValid.email
+              isValids.email === undefined || isValids.email
                 ? ''
                 : 'auth__error_active'
             }`}>
@@ -54,7 +54,7 @@ export const Login = (props) => {
             minLength='8'
             maxLength='128'
             className={`auth__input ${
-              isValid.password === undefined || isValid.password
+              isValids.password === undefined || isValids.password
                 ? ''
                 : 'auth__input_type_error'
             }`}
@@ -63,7 +63,7 @@ export const Login = (props) => {
           />
           <span
             className={`auth__error ${
-              isValid.password === undefined || isValid.password
+              isValids.password === undefined || isValids.password
                 ? ''
                 : 'auth__error_active'
             }`}>

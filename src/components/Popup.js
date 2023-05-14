@@ -26,7 +26,7 @@ export const Popup = (props) => {
       className={`popup ${props.isOpen ? 'popup_opened' : ''} popup_type_${
         props.name
       }`}
-      onClick={handleOverlay}>
+      onMouseDown={handleOverlay}>
       <div className={`popup__container popup__container_type_${props.name}`}>
         <button
           type='button'

@@ -5,7 +5,7 @@ import { useFormAndValidation } from '../hooks/useFormAndValidation';
 
 export const EditProfilePopup = (props) => {
   const currentUser = useContext(CurrentUserContext);
-  const { values, errors, isValid, setValues, handleChange, resetForm } =
+  const { values, errors, isValids, isValid, setValues, handleChange, resetForm } =
     useFormAndValidation();
 
   useEffect(() => {
@@ -33,6 +33,7 @@ export const EditProfilePopup = (props) => {
       title={'Редактировать профиль'}
       name={'edit-profile'}
       submitText={'Сохранить'}
+      isValid={isValid}
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}>
@@ -45,7 +46,7 @@ export const EditProfilePopup = (props) => {
             minLength='2'
             maxLength='40'
             className={`popup__input ${
-              isValid.name === undefined || isValid.name
+              isValids.name === undefined || isValids.name
                 ? ''
                 : 'popup__input_type_error'
             }`}
@@ -55,7 +56,7 @@ export const EditProfilePopup = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.name === undefined || isValid.name
+              isValids.name === undefined || isValids.name
                 ? ''
                 : 'popup__error_active'
             }`}>
@@ -70,7 +71,7 @@ export const EditProfilePopup = (props) => {
             minLength='2'
             maxLength='200'
             className={`popup__input ${
-              isValid.about === undefined || isValid.about
+              isValids.about === undefined || isValids.about
                 ? ''
                 : 'popup__input_type_error'
             }`}
@@ -80,7 +81,7 @@ export const EditProfilePopup = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.about === undefined || isValid.about
+              isValids.about === undefined || isValids.about
                 ? ''
                 : 'popup__error_active'
             }`}>

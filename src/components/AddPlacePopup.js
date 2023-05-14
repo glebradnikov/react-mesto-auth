@@ -3,7 +3,7 @@ import { PopupWithForm } from './PopupWithForm';
 import { useFormAndValidation } from '../hooks/useFormAndValidation';
 
 export const AddPlacePopup = (props) => {
-  const { values, errors, isValid, handleChange, resetForm } =
+  const { values, errors, isValids, isValid, handleChange, resetForm } =
     useFormAndValidation();
 
   useEffect(() => {
@@ -26,6 +26,7 @@ export const AddPlacePopup = (props) => {
       title={'Новое место'}
       name={'add-card'}
       submitText={'Создать'}
+      isValid={isValid}
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}>
@@ -38,7 +39,7 @@ export const AddPlacePopup = (props) => {
             minLength='2'
             maxLength='30'
             className={`popup__input ${
-              isValid.title === undefined || isValid.title
+              isValids.title === undefined || isValids.title
                 ? ''
                 : 'popup__input_type_error'
             }`}
@@ -48,7 +49,7 @@ export const AddPlacePopup = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.title === undefined || isValid.title
+              isValids.title === undefined || isValids.title
                 ? ''
                 : 'popup__error_active'
             }`}>
@@ -61,7 +62,7 @@ export const AddPlacePopup = (props) => {
             name='link'
             placeholder='Ссылка на картинку'
             className={`popup__input ${
-              isValid.link === undefined || isValid.link
+              isValids.link === undefined || isValids.link
                 ? ''
                 : 'popup__input_type_error'
             }`}
@@ -71,7 +72,7 @@ export const AddPlacePopup = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.link === undefined || isValid.link
+              isValids.link === undefined || isValids.link
                 ? ''
                 : 'popup__error_active'
             }`}>

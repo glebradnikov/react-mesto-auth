@@ -2,7 +2,7 @@ import { AuthForm } from './AuthForm';
 import { useFormAndValidation } from '../hooks/useFormAndValidation';
 
 export const Register = (props) => {
-  const { values, errors, isValid, handleChange } = useFormAndValidation();
+  const { values, errors, isValids, handleChange } = useFormAndValidation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,7 +27,7 @@ export const Register = (props) => {
             value={values.email || ''}
             placeholder='Email'
             className={`auth__input ${
-              isValid.email === undefined || isValid.email
+              isValids.email === undefined || isValids.email
                 ? ''
                 : 'auth__input_type_error'
             }`}
@@ -36,7 +36,7 @@ export const Register = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.email === undefined || isValid.email
+              isValids.email === undefined || isValids.email
                 ? ''
                 : 'popup__error_active'
             }`}>
@@ -52,7 +52,7 @@ export const Register = (props) => {
             minLength='8'
             maxLength='128'
             className={`auth__input ${
-              isValid.password === undefined || isValid.password
+              isValids.password === undefined || isValids.password
                 ? ''
                 : 'auth__input_type_error'
             }`}
@@ -61,7 +61,7 @@ export const Register = (props) => {
           />
           <span
             className={`popup__error ${
-              isValid.password === undefined || isValid.password
+              isValids.password === undefined || isValids.password
                 ? ''
                 : 'popup__error_active'
             }`}>
